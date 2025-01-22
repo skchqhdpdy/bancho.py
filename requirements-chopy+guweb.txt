@@ -42,7 +42,7 @@ uvicorn==0.30.6
 
 #guweb
 cmyui==1.9.3
-Quart==0.19.6
+Quart==0.20.0
 aiohttp==3.10.9
 mysql-connector==2.2.9
 markdown2==2.5.0
