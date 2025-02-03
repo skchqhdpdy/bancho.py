@@ -42,6 +42,7 @@ uvicorn==0.30.6
 
 #guweb
 cmyui==1.9.3
+discord-webhook===1.3.0
 Quart==0.20.0
 aiohttp==3.10.9
 mysql-connector==2.2.9
