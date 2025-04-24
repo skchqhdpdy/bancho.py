@@ -14,7 +14,7 @@ fi
 if [ ! -f "logging.yaml" ]; then
     sudo cp logging.yaml.example logging.yaml
 fi
-export $(grep -v '^#' .env | xargs) #환경변수 가져옴
+source .env #export $(grep -v '^#' .env | xargs) #환경변수 가져옴
 
 sudo apt update
 
@@ -22,8 +22,8 @@ sudo apt update
 echo nginx install
 if [ ! -d "../certs" ]; then
     sudo mkdir ../certs
-    sudo wget -O ../certs/cert.crt https://aodd.xyz/wireguard/cert.crt
-    sudo wget -O ../certs/cert.key https://aodd.xyz/wireguard/cert.key
+    sudo wget -O ../certs/cert.crt https://files.vpn.aodd.xyz/cert.crt
+    sudo wget -O ../certs/cert.key https://files.vpn.aodd.xyz/cert.key
 fi
 if ! dpkg -l | grep -q nginx; then
     sudo apt install -y nginx
@@ -37,8 +37,8 @@ sudo service nginx restart
 
 #docker
 echo docker install
-bash get.docker.com
-#sudo curl https://aodd.xyz/wireguard/get.docker.com | sh
+bash toos/get.docker.com
+#sudo curl https://files.vpn.aodd.xyz/get.docker.com | sh
 sudo usermod -aG docker $(whoami)
 sudo apt install -y make
 sudo make build
@@ -49,8 +49,8 @@ if [[ $isUseDocker == "n" && ! $(dpkg -l | grep -q mysql) ]]; then
     sudo apt install -y mysql-server
     #sudo mysql_secure_installation
     sudo mysql -u root <<EOF
-CREATE USER 'osu'@'%' IDENTIFIED BY '${DB_PASS}';
-GRANT ALL PRIVILEGES ON *.* TO 'osu'@'%' WITH GRANT OPTION;
+CREATE USER '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASS}';
+GRANT ALL PRIVILEGES ON *.* TO '${DB_USER}'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 CREATE DATABASE ${DB_NAME};
 USE ${DB_NAME};
