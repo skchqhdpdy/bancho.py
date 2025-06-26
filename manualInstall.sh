@@ -37,7 +37,7 @@ sudo service nginx restart
 
 #docker
 echo docker install
-bash toos/get.docker.com
+bash tools/get.docker.com
 #sudo curl https://files.vpn.aodd.xyz/get.docker.com | sh
 sudo usermod -aG docker $(whoami)
 sudo apt install -y make
